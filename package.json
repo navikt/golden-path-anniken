@@ -9,7 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.1.1",
+    "@navikt/aksel-icons": "^7.37.0",
+    "@navikt/ds-css": "^7.37.0",
+    "@navikt/ds-react": "^7.37.0",
+    "@navikt/nav-dekoratoren-moduler": "^3.2.3",
+    "next": "15.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
