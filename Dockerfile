@@ -2,10 +2,16 @@ FROM node:24-alpine AS builder
 
 WORKDIR /app
 
-COPY next.config.ts tsconfig.json package.json ./
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN sh -c \
+    'npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)'
+RUN npm config set @navikt:registry=https://npm.pkg.github.com
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY next.config.ts tsconfig.json ./
 COPY app app
 COPY public public
-COPY node_modules node_modules
 
 RUN npm run build
 
@@ -21,4 +27,4 @@ EXPOSE 3000
 
 ENV NODE_ENV=production
 
-CMD ["server.js"]
+CMD ["server.js"]​​​​
