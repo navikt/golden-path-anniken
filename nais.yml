@@ -12,3 +12,5 @@ spec:
     - https://golden-path-anniken.intern.dev.nav.no
   image: {{image}}
   port: 3000
+  idporten:
+    enabled: true
