@@ -15,16 +15,16 @@ COPY public public
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs24-debian12 AS runtime
+FROM node:24-alpine AS runtime
 
 WORKDIR /app
 
-COPY --from=builder /app/.next/standalone /app
-COPY --from=builder /app/.next/static /app/.next/static
-COPY --from=builder /app/public /app/public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
 ENV NODE_ENV=production
 
-CMD ["server.js"]​​​​
+CMD ["node", "server.js"]
