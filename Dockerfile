@@ -20,7 +20,6 @@ FROM node:24-alpine AS runtime
 WORKDIR /app
 
 COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 EXPOSE 3000
@@ -28,3 +27,6 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 CMD ["node", "server.js"]
+
+FROM scratch AS export
+COPY --from=builder /app/.next/static /
